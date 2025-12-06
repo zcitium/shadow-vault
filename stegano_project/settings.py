@@ -82,6 +82,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Vercel specific fixes
+WHITENOISE_STATIC_PREFIX = '/static/'
+if not DEBUG:
+     STATIC_URL = '/static/'
+
 # Logging Configuration
 LOGGING = {
     'version': 1,
