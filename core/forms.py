@@ -6,6 +6,13 @@ class EncodeForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), label='Secret Message')
     password = forms.CharField(widget=forms.PasswordInput, label='Password', required=True)
 
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Server
+                raise forms.ValidationError("Image file too large ( > 4.5MB). Please compress it.")
+        return image
+
 class DecodeForm(forms.Form):
     image = forms.ImageField(label='Select Image to Decode', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])])
     password = forms.CharField(widget=forms.PasswordInput, label='Password', required=True)
