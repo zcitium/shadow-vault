@@ -96,8 +96,26 @@
                 img.onload = function () {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    const width = img.width * 0.7;
-                    const height = img.height * 0.7;
+
+                    // Aggressive Resizing: Max Dimension 1200px
+                    const MAX_DIMENSION = 1200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+                        if (width > height) {
+                            height *= MAX_DIMENSION / width;
+                            width = MAX_DIMENSION;
+                        } else {
+                            width *= MAX_DIMENSION / height;
+                            height = MAX_DIMENSION;
+                        }
+                    } else {
+                        // Even small images get a slight squeeze to strip bloat
+                        width *= 0.9;
+                        height *= 0.9;
+                    }
+
                     canvas.width = width;
                     canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
@@ -111,9 +129,9 @@
                         dataTransfer.items.add(newFile);
                         fileInput.files = dataTransfer.files;
 
-                        showCustomAlert(`Yay! Compressed to ${(newFile.size / (1024 * 1024)).toFixed(2)}MB`);
+                        showCustomAlert(`Resized & Optimized! New size: ${(newFile.size / (1024 * 1024)).toFixed(2)}MB`);
 
-                    }, 'image/jpeg', 0.7);
+                    }, 'image/jpeg', 0.8);
                 };
             };
         }
