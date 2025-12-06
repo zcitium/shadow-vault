@@ -21,7 +21,8 @@ def encode(request):
                 
                 response = HttpResponse(content_type='image/png')
                 response['Content-Disposition'] = 'attachment; filename="encoded_image.png"'
-                encoded_image.save(response, 'PNG')
+                # Optimize PNG: level 9 compression, no interlacing
+                encoded_image.save(response, 'PNG', optimize=True, compress_level=9)
                 return response
             except Exception as e:
                 messages.error(request, f"Error encoding message: {str(e)}")
