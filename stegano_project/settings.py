@@ -46,14 +46,14 @@ if not DEBUG:
 
 # ... existing code ...
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost', 'yourshadowvault.vercel.app']
-CSRF_TRUSTED_ORIGINS = ['https://yourshadowvault.vercel.app']
+ALLOWED_HOSTS = ['*'] # Relaxed for debugging
+CSRF_TRUSTED_ORIGINS = ['https://yourshadowvault.vercel.app', 'https://*.vercel.app']
 
 # CSRF Settings for production
-CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = False  # Must be False so JavaScript can read it
-if not DEBUG:
-    CSRF_COOKIE_DOMAIN = '.vercel.app'
+CSRF_COOKIE_SAMESITE = 'None' # Most permissive
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = False
+# CSRF_COOKIE_DOMAIN = '.vercel.app' # Commented out to rely on default behavior
 
 # Application definition
 
