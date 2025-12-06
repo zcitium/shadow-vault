@@ -99,7 +99,28 @@
             }
         });
 
+        // Progress Overlay Logic
+        const progressOverlayHTML = `
+            <div id="progressOverlay" class="progress-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <div class="progress-text">ENCRYPTING...</div>
+                <p style="color: #b39ddb; margin-top: 10px;">Please wait, this may take a moment.</p>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', progressOverlayHTML);
+        const progressOverlay = document.getElementById("progressOverlay");
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (e) {
+            // Basic validation check before showing loader
+            if (fileInput.files.length > 0) {
+                progressOverlay.style.display = 'flex';
+            }
+        });
+
         function compressImage(file) {
+            // Show loader during compression too? Maybe just for final submit.
+            // keeping it simple for now.
             const reader = new FileReader();
             reader.readAsDataURL(file);
 
