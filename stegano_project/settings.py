@@ -79,12 +79,8 @@ MIDDLEWARE = [
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'  # Simplified storage
-
-# Vercel specific fixes
-WHITENOISE_STATIC_PREFIX = '/static/'
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# Using default storage for Vercel compatibility
 
 # Logging Configuration
 LOGGING = {
