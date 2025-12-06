@@ -143,9 +143,12 @@ WSGI_APPLICATION = 'stegano_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': ':memory:', # Use in-memory DB to avoid read-only errors on Vercel
     }
 }
+
+# Use Cookie-based sessions (No DB required)
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 
 # Password validation
