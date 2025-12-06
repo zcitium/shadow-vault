@@ -73,6 +73,13 @@
             const file = e.target.files[0];
             if (!file) return;
 
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (!allowedTypes.includes(file.type)) {
+                showCustomAlert("Error: Only JPG and PNG files are allowed.");
+                fileInput.value = ''; // Clear input
+                return;
+            }
+
             if (file.size > MAX_SIZE_BYTES) {
                 const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                 const msg = `Image size is ${fileSizeMB}MB (Max ${MAX_SIZE_MB}MB).\n\nIt's too big! Should I compress it for you?`;

@@ -9,6 +9,8 @@ class EncodeForm(forms.Form):
     def clean_image(self):
         image = self.cleaned_data.get('image')
         if image:
+            if not image.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                raise forms.ValidationError("Only PNG and JPG files are allowed.")
             if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Server
                 raise forms.ValidationError("Image file too large ( > 4.5MB). Please compress it.")
         return image
@@ -20,6 +22,8 @@ class DecodeForm(forms.Form):
     def clean_image(self):
         image = self.cleaned_data.get('image')
         if image:
-             if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Decrypt
+            if not image.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                raise forms.ValidationError("Only PNG and JPG files are allowed.")
+            if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Decrypt
                 raise forms.ValidationError("Image file too large ( > 4.5MB).")
         return image
