@@ -69,7 +69,7 @@
 
                     {% if messages %}
                     {% for message in messages %}
-                    modalMessage.textContent = "{{ message }}";
+                    modalMessage.textContent = "{{ message|escapejs }}";
                     modal.style.display = "block";
                     {% endfor %}
                     {% endif %}

@@ -9,6 +9,13 @@
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
+            {% if field.errors %}
+            <div class="error-message" style="color: #ff80ab; font-size: 0.9em; margin-top: 5px;">
+                {% for error in field.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
         <button type="submit" class="btn">Decrypt</button>
