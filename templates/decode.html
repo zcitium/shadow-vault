@@ -65,6 +65,24 @@
                 fileInput.value = ''; // Clear input
             }
         });
+
+        // Progress Overlay Logic
+        const progressOverlayHTML = `
+            <div id="progressOverlay" class="progress-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <div class="progress-text">DECRYPTING...</div>
+                <p style="color: #b39ddb; margin-top: 10px;">Hunting for hidden secrets...</p>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', progressOverlayHTML);
+        const progressOverlay = document.getElementById("progressOverlay");
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (e) {
+            if (fileInput.files.length > 0) {
+                progressOverlay.style.display = 'flex';
+            }
+        });
     });
 </script>
 {% endblock %}
