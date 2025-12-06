@@ -16,3 +16,10 @@ class EncodeForm(forms.Form):
 class DecodeForm(forms.Form):
     image = forms.ImageField(label='Select Image to Decode', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])])
     password = forms.CharField(widget=forms.PasswordInput, label='Password', required=True)
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+             if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Decrypt
+                raise forms.ValidationError("Image file too large ( > 4.5MB).")
+        return image

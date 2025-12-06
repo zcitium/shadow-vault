@@ -8,7 +8,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&family=Nunito:wght@400;600;800&display=swap"
         rel="stylesheet">
 </head>
 
@@ -19,14 +19,37 @@
             <a href="{% url 'home' %}" class="logo">SHADOW<span class="highlight">VAULT</span></a>
         </header>
         <main>
-            {% if messages %}
-            <div class="toast-container">
-                {% for message in messages %}
-                <div class="toast toast-{{ message.tags }}">
-                    {{ message }}
+            <!-- Modal Popup -->
+            <div id="messageModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <p id="modalMessage"></p>
                 </div>
-                {% endfor %}
             </div>
+
+            {% if messages %}
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const modal = document.getElementById("messageModal");
+                    const modalMessage = document.getElementById("modalMessage");
+
+                    {% for message in messages %}
+                    modalMessage.textContent = "{{ message }}";
+                    modal.style.display = "block";
+                    // Only show first message to avoid stacking
+                    {% endfor %}
+
+                    document.querySelector('.close-btn').addEventListener('click', function () {
+                        modal.style.display = "none";
+                    });
+
+                    window.addEventListener('click', function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    });
+                });
+            </script>
             {% endif %}
             {% block content %}
             {% endblock %}

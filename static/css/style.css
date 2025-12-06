@@ -1,11 +1,19 @@
 :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --accent-color: #ffffff;
-    --secondary-color: #a0a0a0;
-    --font-heading: 'Orbitron', sans-serif;
-    --font-body: 'Roboto', sans-serif;
+    --bg-color: #fce4ec;
+    /* Soft Pink Background */
+    --card-bg: #fff0f5;
+    /* Lavender Blush Card */
+    --text-color: #5d4037;
+    /* Warm Brown Text */
+    --accent-color: #ff80ab;
+    /* Hot Pink Accent */
+    --secondary-color: #880e4f;
+    /* Darker Pink Secondary */
+    --font-heading: 'Quicksand', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+    --button-bg: #b39ddb;
+    /* Pastel Purple */
+    --button-hover: #9575cd;
 }
 
 * {
@@ -24,9 +32,21 @@ body {
     flex-direction: column;
 }
 
-.background-animation {
-    display: none;
-    /* Removed for monochrome theme */
+/* Cute Background Pattern */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(#ffc1e3 20%, transparent 20%),
+        radial-gradient(#e1bee7 20%, transparent 20%);
+    background-position: 0 0, 50px 50px;
+    background-size: 100px 100px;
+    opacity: 0.3;
+    z-index: -1;
 }
 
 .container {
@@ -40,21 +60,22 @@ body {
 }
 
 header {
-    padding: 20px 0;
+    padding: 40px 0;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .logo {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: #fff;
+    font-size: 3rem;
+    color: var(--secondary-color);
     text-decoration: none;
-    letter-spacing: 2px;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px #fff;
 }
 
 .highlight {
-    color: var(--secondary-color);
+    color: var(--accent-color);
 }
 
 main {
@@ -67,71 +88,75 @@ main {
 
 .card {
     background: var(--card-bg);
-    border: 1px solid #333;
-    border-radius: 20px;
+    border: 5px solid #fff;
+    border-radius: 30px;
     padding: 40px;
     width: 100%;
     max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
+    box-shadow: 0 10px 25px rgba(255, 128, 171, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: var(--accent-color);
+    box-shadow: 0 15px 35px rgba(255, 128, 171, 0.5);
 }
 
 h1,
 h2 {
     font-family: var(--font-heading);
-    margin-bottom: 20px;
-    color: var(--accent-color);
+    margin-bottom: 25px;
+    color: var(--secondary-color);
     text-align: center;
+    font-weight: 700;
 }
 
 .btn {
     display: inline-block;
-    padding: 15px 30px;
-    background: transparent;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
+    padding: 15px 35px;
+    background: var(--button-bg);
+    border: none;
+    color: #fff;
     font-family: var(--font-heading);
     font-size: 1.1rem;
+    font-weight: 700;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 50px;
+    /* Highly rounded pill shape */
     transition: all 0.3s ease;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(179, 157, 219, 0.4);
     margin: 10px;
 }
 
 .btn:hover {
-    background: var(--accent-color);
-    color: #000;
+    background: var(--button-hover);
+    transform: scale(1.05);
 }
 
 .btn-secondary {
-    border-color: var(--secondary-color);
+    background: #fff;
     color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
 }
 
 .btn-secondary:hover {
     background: var(--secondary-color);
-    color: #000;
+    color: #fff;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 label {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-weight: 800;
+    margin-bottom: 8px;
     display: block;
-    color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
 }
 
 input[type="file"],
@@ -139,19 +164,21 @@ textarea,
 input[type="password"],
 input[type="text"] {
     width: 100%;
-    padding: 15px;
-    background: #2c2c2c;
-    border: 1px solid #444;
-    border-radius: 20px;
-    color: #fff;
+    padding: 18px;
+    background: #fff;
+    border: 3px solid #f8bbd0;
+    border-radius: 25px;
+    color: var(--text-color);
     font-family: var(--font-body);
     font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
 input:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(255, 128, 171, 0.2);
 }
 
 textarea {
@@ -159,19 +186,23 @@ textarea {
 }
 
 .result-box {
-    background: #2c2c2c;
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid var(--accent-color);
-    margin-top: 20px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 25px;
+    border: 3px solid #e1bee7;
+    margin-top: 25px;
     word-break: break-all;
+    font-family: 'Courier New', monospace;
+    /* Monospace for the secret message */
+    color: #555;
 }
 
 footer {
     text-align: center;
-    padding: 20px 0;
-    font-size: 0.8rem;
-    color: #666;
+    padding: 30px 0;
+    font-size: 0.9rem;
+    color: #8d6e63;
+    font-weight: 600;
 }
 
 .home-options {
@@ -186,82 +217,101 @@ footer {
     min-width: 250px;
     text-align: center;
     padding: 40px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid #333;
+    background: #fff;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     text-decoration: none;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .option-card:hover {
     transform: translateY(-10px);
-    background: #333;
-    border-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(255, 128, 171, 0.25);
 }
 
 .option-card h3 {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
     color: var(--accent-color);
 }
 
 .option-card p {
-    font-size: 1rem;
-    color: var(--secondary-color);
+    font-size: 1.1rem;
+    color: #8d6e63;
 }
 
-/* Toast Notifications */
-.toast-container {
+/* Modal Popup (Cute Version) */
+.modal {
+    display: none;
     position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
 }
 
-.toast {
-    padding: 15px 25px;
-    border-radius: 20px;
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 40px;
+    border: none;
+    border-radius: 40px;
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+    color: var(--text-color);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 600;
+    box-shadow: 0 20px 60px rgba(255, 128, 171, 0.4);
+    animation: bounceIn 0.4s;
+}
+
+.close-btn {
+    color: #ff80ab;
+    float: right;
+    font-size: 32px;
+    font-weight: 800;
+    cursor: pointer;
+    background: #fff0f5;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    margin-top: -20px;
+    margin-right: -20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.close-btn:hover {
+    background: #ff80ab;
     color: #fff;
-    font-family: var(--font-body);
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    background: #333;
-    border: 1px solid #555;
-    animation: slideIn 0.5s ease forwards, fadeOut 0.5s ease 4.5s forwards;
-    opacity: 0;
 }
 
-.toast-success {
-    border-left: 5px solid #fff;
-}
-
-.toast-error {
-    border-left: 5px solid #999;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
+@keyframes bounceIn {
+    0% {
         opacity: 0;
+        transform: scale(0.3);
     }
 
-    to {
-        transform: translateX(0);
+    50% {
         opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
+        transform: scale(1.05);
     }
 
-    to {
-        opacity: 0;
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
     }
 }

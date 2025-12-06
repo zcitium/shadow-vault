@@ -25,4 +25,23 @@
         <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.querySelector('input[type="file"]');
+        const MAX_SIZE_MB = 4.5;
+        const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > MAX_SIZE_BYTES) {
+                // Show Modal (Function tied to new structure) or Alert fallback
+                alert(`Error: This file is too large to process (${(file.size / (1024 * 1024)).toFixed(2)}MB).\nMaximum size for decryption is ${MAX_SIZE_MB}MB.`);
+                fileInput.value = ''; // Clear input
+            }
+        });
+    });
+</script>
 {% endblock %}
