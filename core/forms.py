@@ -11,8 +11,8 @@ class EncodeForm(forms.Form):
         if image:
             if not image.name.lower().endswith(('.png', '.jpg', '.jpeg')):
                 raise forms.ValidationError("Only PNG and JPG files are allowed.")
-            if image.size > 4.5 * 1024 * 1024: # 4.5MB Hard Limit for Server
-                raise forms.ValidationError("Image file too large ( > 4.5MB). Please compress it.")
+            if image.size > 2 * 1024 * 1024: # 2MB Strict Limit for Input (prevents bloating > 4.5MB)
+                raise forms.ValidationError("Image file too large (> 2MB). Please compress it.")
         return image
 
 class DecodeForm(forms.Form):
