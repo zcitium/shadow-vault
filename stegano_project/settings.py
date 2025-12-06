@@ -46,7 +46,8 @@ if not DEBUG:
 
 # ... existing code ...
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost', 'yourshadowvault.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://yourshadowvault.vercel.app']
 
 # Application definition
 
