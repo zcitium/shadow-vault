@@ -112,10 +112,63 @@
         const form = document.querySelector('form');
 
         form.addEventListener('submit', function (e) {
-            // Basic validation check before showing loader
-            if (fileInput.files.length > 0) {
-                progressOverlay.style.display = 'flex';
+            e.preventDefault(); // Stop standard submission
+
+            if (fileInput.files.length === 0) {
+                // Should be caught by required attribute, but just in case
+                return;
             }
+
+            // Show Spinner
+            progressOverlay.style.display = 'flex';
+
+            const formData = new FormData(form);
+
+            fetch(form.action || window.location.href, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => {
+                    const contentType = response.headers.get("content-type");
+
+                    if (contentType && contentType.includes("image/png")) {
+                        // It's a file! Download it.
+                        return response.blob().then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.style.display = 'none';
+                            a.href = url;
+                            // Use filename from header if possible, or default
+                            a.download = 'encoded_image.png';
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+
+                            // Hide Spinner immediately after download starts
+                            progressOverlay.style.display = 'none';
+
+                            // Optional: Show success message/modal?
+                            showCustomAlert("Encryption Complete! Image downloaded.");
+                        });
+                    } else {
+                        // It's HTML (Error page)
+                        return response.text().then(html => {
+                            // Replace the current page content with the error page
+                            document.open();
+                            document.write(html);
+                            document.close();
+                            // Spinner disappears because page content is replaced/reloaded
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    progressOverlay.style.display = 'none';
+                    showCustomAlert("An unexpected error occurred. Please try again.");
+                });
         });
 
         function compressImage(file) {
