@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowVault</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+        <header>
+            <a href="{% url 'home' %}" class="logo">SHADOW<span class="highlight">VAULT</span></a>
+        </header>
+        <main>
+            {% if messages %}
+            <div class="toast-container">
+                {% for message in messages %}
+                <div class="toast toast-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2025 ShadowVault. Secure. Hidden. Elegant.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

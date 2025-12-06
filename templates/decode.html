@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>DECODE MESSAGE</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn">Decrypt</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+        <h3>Decoded Message:</h3>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="home-options">
+    <a href="{% url 'encode' %}" class="option-card">
+        <h3>ENCODE</h3>
+        <p>Hide a secret message inside an image.</p>
+    </a>
+    <a href="{% url 'decode' %}" class="option-card">
+        <h3>DECODE</h3>
+        <p>Reveal a hidden message from an image.</p>
+    </a>
+</div>
+{% endblock %}

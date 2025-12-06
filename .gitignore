@@ -1,0 +1,17 @@
+
+# Python
+*.pyc
+__pycache__/
+venv/
+env/
+.env
+
+# Django
+db.sqlite3
+*.log
+
+# Static
+staticfiles_build/
+
+# Media
+media/
